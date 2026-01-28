@@ -26,7 +26,15 @@ ankit_data = [
     "Mukhe diye pan, maro ankit er gan(d)",
     "Bara Panchod gare arshola guje die LAL HIT spray kore debo...",
     "10 ta back chure marbo bara Microsoft ☠️",
-    "Background character energy."
+    "Background character energy.",
+    "Train e Bichi kata Ankit 💦",
+    "Handle Choda Ankit💦",
+    "Royal Stag choda Ankit 💦💦",
+    "Ankit er fata , gudmarani r beta 💦",
+    "Highway rendimagi Ankit 💦",
+    "AOT bessa magi Ankit💦",
+    "Malgari r bichi Ankit er guddee💦",
+    "Nakazz chudi Ankit 💦"
 ]
 
 abhra_data = [
@@ -80,6 +88,22 @@ gunda_data = [
     "Khanki Chudi Saalaa 🙄",
     "Gunda r garer cheday rocket guje mahakash e pathie debo khankir meye akta 🙄",
     "Gunda 💗 Ankit",
+    "Besaaa Magii Gunda 👅",
+    "Gunda Rendi khana 🖕",
+    "Silencer dhokano Gunda magi 💀",
+    "Road e ghose jaoa Gunda pussy 🖕",
+    "Arnab er bichi dhokano mal Gunda 💀",
+    "Phedaa khaoa Gunda 🖕",
+    "Bablachudi Gunda 🖕",
+    "Choto bichi ar jhulonto duudhh wala Gunda 💀",
+    "Handle dkhokano Gunda 💀",
+    "Gunda r poder futo, pahar r guhoo 🖕",
+    "Jolonto chudir meye Gunda 🖕",
+    "Nataka chudi Gunda 💀",
+    "Baba choda Gunda 🖕",
+    "Mountain Dew, Gunda ma ki chut 🖕",
+    "Scooty choda Gunda 💀",
+    "Sobai kore guun guun, Gunda r pussy te agun 👅",
     "Gunda akta Gudmarani...ewwww !!"
 ]
 
@@ -176,3 +200,4 @@ async def list(ctx):
 
 # RUN BOT
 bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
+
