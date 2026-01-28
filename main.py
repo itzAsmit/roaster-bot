@@ -200,6 +200,4 @@ async def list(ctx):
 
 
 # RUN BOT
-bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
-
-
+bot.run(os.getenv("TOKEN"))
