@@ -76,6 +76,7 @@ gunda_data = [
     "Chutmaarani Rendi 🥀",
     "Generational Rendi 😒",
     "Khanki Chudi Saalaa 🙄",
+    "Gunda r garer cheday rocket guje mahakash e pathie debo khankir meye akta 🙄",
     "Gunda 💗 Ankit",
     "Gunda akta Gudmarani...ewwww !!"
 ]
@@ -161,3 +162,4 @@ async def list(ctx):
 
 # RUN BOT
 bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
+
