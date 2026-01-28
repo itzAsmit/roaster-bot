@@ -24,6 +24,10 @@ ankit_data = [
     "Ankit er Pussy, sobcheye juicy 🫦💦",
     "Bhor Pone 5 ta obdi Panchod er Bou ke Chudbo 🤣",
     "Saala tor maa ke tel muri diye chudbo, sala tor bhai jhal muri hoye berobe 🤣🤣",
+    "Panchod er pod, Tel chara chod.",
+    "Mukhe diye pan, maro ankit er gan(d)",
+    "Bara Panchod gare arshola guje die LAL HIT spray kore debo...",
+    "10 ta back chure marbo bara Microsoft ☠️",
     "Background character energy."
 ]
 
@@ -162,4 +166,5 @@ async def list(ctx):
 
 # RUN BOT
 bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
+
 
