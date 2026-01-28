@@ -1,15 +1,13 @@
 import discord
 from discord.ext import commands
-import random
+import os
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-
 # ROAST DATABASE
-
 ankit_data = [
     "Ankit er Bichi Choto 💀",
     "Ankit Madarchod.",
@@ -85,8 +83,16 @@ gunda_data = [
     "Gunda akta Gudmarani...ewwww !!"
 ]
 
-# ROAST LIST DATABASE
+# ROAST INDEX
+roast_index = {
+    "ankit": 0,
+    "abhra": 0,
+    "biswa": 0,
+    "asmit": 0,
+    "gunda": 0
+}
 
+# ROAST LIST DATABASE
 roast_db = {
     "Ankit": ankit_data,
     "Abhra": abhra_data,
@@ -96,7 +102,6 @@ roast_db = {
 }
 
 # EVENTS
-
 @bot.event
 async def on_ready():
     print("Bot is online 🔥")
@@ -113,28 +118,34 @@ async def on_ready():
                 "🟢 **Bot is Updated just now.**\nYou may continue your bakchodi 👾"
             )
 
+# SERIAL FUNCTION
+def get_next(name, data):
+    i = roast_index[name]
+    msg = data[i]
+    roast_index[name] = (i + 1) % len(data)
+    return msg
 
 # COMMANDS
-
 @bot.command()
 async def ankit(ctx):
-    await ctx.send(random.choice(ankit_data))
+    await ctx.send(get_next("ankit", ankit_data))
 
 @bot.command()
 async def abhra(ctx):
-    await ctx.send(random.choice(abhra_data))
+    await ctx.send(get_next("abhra", abhra_data))
 
 @bot.command()
 async def biswa(ctx):
-    await ctx.send(random.choice(biswa_data))
+    await ctx.send(get_next("biswa", biswa_data))
 
 @bot.command()
 async def asmit(ctx):
-    await ctx.send(random.choice(asmit_data))
+    await ctx.send(get_next("asmit", asmit_data))
 
 @bot.command()
 async def gunda(ctx):
-    await ctx.send(random.choice(gunda_data))
+    await ctx.send(get_next("gunda", gunda_data))
+
 
 @bot.command()
 async def roastlist(ctx):
@@ -163,8 +174,5 @@ async def list(ctx):
     await ctx.send(msg)
 
 
-
 # RUN BOT
 bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
-
-
