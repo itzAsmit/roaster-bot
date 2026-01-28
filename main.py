@@ -31,9 +31,10 @@ ankit_data = [
     "Handle Choda Ankit💦",
     "Royal Stag choda Ankit 💦💦",
     "Ankit er fata , gudmarani r beta 💦",
-    "Highway rendimagi Ankit 💦",
-    "AOT bessa magi Ankit💦",
+    "Highway r rendimagi Ankit 💦",
+    "AOT r bessa magi Ankit💦",
     "Malgari r bichi Ankit er guddee💦",
+    "Saala toke Bally te giye chude asbo 😝",
     "Nakazz chudi Ankit 💦"
 ]
 
@@ -200,4 +201,5 @@ async def list(ctx):
 
 # RUN BOT
 bot.run("MTQ2NjA0MjA4ODg3NjQxMjk0OQ.GsLIRx.2tpsDZnpRAZWGzSZCessieJnrluEKKcmA5_qw4")
+
 
