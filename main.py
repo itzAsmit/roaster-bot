@@ -193,7 +193,7 @@ async def roastlist(ctx):
 @bot.command()
 async def helpme(ctx):
     msg = (
-        "📘 *Bot Commands* 📘\n\n"
+        "📘 **Bot Commands** 📘\n\n"
         "• `!ankit` — Roast Ankit\n"
         "• `!abhra` — Roast Abhra\n"
         "• `!biswa` — Roast Biswa\n"
@@ -202,10 +202,10 @@ async def helpme(ctx):
         "**Utility:**\n"
         "• `!roastlist` — Show roast database\n\n"
         "**AI:**\n"
-        "You can **tag the bot** to roast or ask AI 👾\n"
-        "**💡 Tip:**"
-        "Tag the bot with a name for database roasts,"
-        "add `ai` for creative AI roasts." 
+        "You can **tag the bot** to roast or ask AI 👾\n\n"
+        "**💡 Tip:**\n"
+        "Tag the bot with a name for database roasts,\n"
+        "add `ai` for creative AI roasts.\n" 
         "Type commands with `!` prefix.\n"
         "Use responsibly 😌🔥"
     )
@@ -247,6 +247,7 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
 
