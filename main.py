@@ -211,56 +211,33 @@ async def list(ctx):
     await ctx.send(msg)
 
 
-# AI COMMAND
-
-@bot.command()
-async def ai(ctx, *, question):
-    await ctx.trigger_typing()
-
-    try:
-        response = text_model.generate_content(question)
-        await ctx.send(response.text[:1900])
-    except Exception as e:
-        print(e)
-        await ctx.send("⚠️ Gemini API error. Check API key.")
-
-
-
 # TAG HANDLER
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
 
-    handled = False
-
     if message.content.startswith(f"<@{bot.user.id}>"):
         content = message.content.replace(f"<@{bot.user.id}>", "").strip().lower()
 
-        # Roast check
+        # ---- ROAST MODE ----
         for name, data in roast_db.items():
-            if name.lower() in content:
-                roast = get_next(name.lower(), data)
+            if name in content:
+                roast = get_next(name, data)
                 await message.channel.send(roast)
-                handled = True
-                break
+                return
 
-        # AI fallback
-        if not handled and content:
+        # ---- AI MODE ----
+        if content:
             try:
                 response = text_model.generate_content(content)
                 await message.channel.send(response.text[:1900])
-                handled = True
             except Exception as e:
                 print(e)
                 await message.channel.send("⚠️ Gemini API error.")
 
-    # ===== ALWAYS ALLOW COMMANDS =====
-    await bot.process_commands(message)
-
-
-
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
