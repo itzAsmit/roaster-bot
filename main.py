@@ -211,37 +211,50 @@ async def list(ctx):
 
 
 # TAG HANDLER
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
 
-    # TAG MODE
     if message.content.startswith(f"<@{bot.user.id}>"):
-        content = message.content.replace(f"<@{bot.user.id}>", "").strip().lower()
 
-        # ROAST MODE
+        raw = message.content.replace(f"<@{bot.user.id}>", "").strip()
+        content = raw.lower()
+
+        # DATABASE ROAST (lowercase ankit)
         for name, data in roast_db.items():
-            if name in content:
-                roast = get_next(name, data)
+            if name.lower() in content and name in raw is False:
+                roast = get_next(name.lower(), data)
                 await message.channel.send(roast)
-                break
-        else:
-            # AI MODE
-            if content:
-                try:
-                    response = text_model.generate_content(content)
-                    await message.channel.send(response.text[:1900])
-                except Exception as e:
-                    print(e)
-                    await message.channel.send("⚠️ Gemini API error.")
+                await bot.process_commands(message)
+                return
 
-    # THIS LINE IS CRITICAL FOR BOTH '!' AND TAGGING
+        # AI ROAST (capital Ankit)
+        if "roast" in content and any(n in raw for n in roast_db.keys()):
+            try:
+                response = text_model.generate_content(raw)
+                await message.channel.send(response.text[:1900])
+            except:
+                await message.channel.send("⚠️ Gemini API error.")
+            await bot.process_commands(message)
+            return
+
+        # NORMAL AI CHAT
+        if raw:
+            try:
+                response = text_model.generate_content(raw)
+                await message.channel.send(response.text[:1900])
+            except:
+                await message.channel.send("⚠️ Gemini API error.")
+                
+    # THIS IS CRITICAL FOR USING BOTH '!' AND TAGGING
     await bot.process_commands(message)
 
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
 
