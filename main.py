@@ -227,7 +227,6 @@ async def ai(ctx, *, question):
 
 
 # TAG HANDLER
-
 @bot.event
 async def on_message(message):
     if message.author.bot:
@@ -253,10 +252,10 @@ async def on_message(message):
                 print(e)
                 await message.channel.send("⚠️ Gemini API error.")
 
-await bot.process_commands(message)
+    # CRITICAL LINE
+    await bot.process_commands(message)
 
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
-
 
