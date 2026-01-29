@@ -202,8 +202,7 @@ async def list(ctx):
         "**Utility:**\n"
         "• `!roastlist` — Show roast database\n\n"
         "**AI:**\n"
-        "• `!ai question` — Ask AI\n\n"
-        "You can also **tag the bot** to roast or ask AI 👾"
+        "You can **tag the bot** to roast or ask AI 👾"
         "Type commands with `!` prefix.\n"
         "Use responsibly 😌🔥"
     )
@@ -217,27 +216,33 @@ async def on_message(message):
     if message.author.bot:
         return
 
+    # TAG MODE
     if message.content.startswith(f"<@{bot.user.id}>"):
         content = message.content.replace(f"<@{bot.user.id}>", "").strip().lower()
 
-        # ---- ROAST MODE ----
+        # ROAST MODE
         for name, data in roast_db.items():
             if name in content:
                 roast = get_next(name, data)
                 await message.channel.send(roast)
-                return
+                break
+        else:
+            # AI MODE
+            if content:
+                try:
+                    response = text_model.generate_content(content)
+                    await message.channel.send(response.text[:1900])
+                except Exception as e:
+                    print(e)
+                    await message.channel.send("⚠️ Gemini API error.")
 
-        # ---- AI MODE ----
-        if content:
-            try:
-                response = text_model.generate_content(content)
-                await message.channel.send(response.text[:1900])
-            except Exception as e:
-                print(e)
-                await message.channel.send("⚠️ Gemini API error.")
+    # THIS LINE IS CRITICAL FOR BOTH '!' AND TAGGING
+    await bot.process_commands(message)
+
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
 
