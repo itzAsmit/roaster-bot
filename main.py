@@ -191,9 +191,9 @@ async def roastlist(ctx):
 # HELP LIST
 
 @bot.command()
-async def list(ctx):
+async def helpme(ctx):
     msg = (
-        "📘 **Bot Commands** 📘\n\n"
+        "📘 *Bot Commands* 📘\n\n"
         "• `!ankit` — Roast Ankit\n"
         "• `!abhra` — Roast Abhra\n"
         "• `!biswa` — Roast Biswa\n"
@@ -202,7 +202,10 @@ async def list(ctx):
         "**Utility:**\n"
         "• `!roastlist` — Show roast database\n\n"
         "**AI:**\n"
-        "You can **tag the bot** to roast or ask AI 👾"
+        "You can **tag the bot** to roast or ask AI 👾\n"
+        "**💡 Tip:**"
+        "Tag the bot with a name for database roasts,"
+        "add `ai` for creative AI roasts." 
         "Type commands with `!` prefix.\n"
         "Use responsibly 😌🔥"
     )
@@ -218,42 +221,33 @@ async def on_message(message):
         return
 
     if message.content.startswith(f"<@{bot.user.id}>"):
-
         raw = message.content.replace(f"<@{bot.user.id}>", "").strip()
         content = raw.lower()
 
-        # DATABASE ROAST (lowercase ankit)
+        # DATABASE ROAST
         for name, data in roast_db.items():
-            if name.lower() in content and name in raw is False:
+            if name.lower() in content:
                 roast = get_next(name.lower(), data)
                 await message.channel.send(roast)
                 await bot.process_commands(message)
                 return
 
-        # AI ROAST (capital Ankit)
-        if "roast" in content and any(n in raw for n in roast_db.keys()):
-            try:
-                response = text_model.generate_content(raw)
-                await message.channel.send(response.text[:1900])
-            except:
-                await message.channel.send("⚠️ Gemini API error.")
-            await bot.process_commands(message)
-            return
-
-        # NORMAL AI CHAT
+        # AI MODE (ONLY IF DB NOT TRIGGERED)
         if raw:
             try:
                 response = text_model.generate_content(raw)
                 await message.channel.send(response.text[:1900])
-            except:
+            except Exception as e:
+                print(e)
                 await message.channel.send("⚠️ Gemini API error.")
-                
+           
     # THIS IS CRITICAL FOR USING BOTH '!' AND TAGGING
     await bot.process_commands(message)
 
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
 
