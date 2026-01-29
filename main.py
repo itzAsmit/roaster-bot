@@ -233,18 +233,18 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if bot.user in message.mentions:
-        content = message.content.lower()
-        content = content.replace(f"<@{bot.user.id}>", "").strip()
+    # ONLY trigger custom logic if message STARTS with mention
+    if message.content.startswith(f"<@{bot.user.id}>"):
+        content = message.content.replace(f"<@{bot.user.id}>", "").strip().lower()
 
-        # ---- ROAST MODE ----
+        # ROAST MODE
         for name, data in roast_db.items():
             if name.lower() in content:
                 roast = get_next(name.lower(), data)
                 await message.channel.send(roast)
                 return
 
-        # ---- AI MODE ----
+        # AI MODE
         if content:
             try:
                 response = text_model.generate_content(content)
@@ -252,12 +252,11 @@ async def on_message(message):
             except Exception as e:
                 print(e)
                 await message.channel.send("⚠️ Gemini API error.")
-    
-    await bot.process_commands(message)
+
+await bot.process_commands(message)
 
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
-
 
 
