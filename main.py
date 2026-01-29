@@ -10,7 +10,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-text_model = genai.GenerativeModel("gemini-1.5-flash")
+text_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # ROAST DATABASE
 ankit_data = [
@@ -258,5 +258,6 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
 
