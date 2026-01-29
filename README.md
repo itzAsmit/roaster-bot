@@ -138,12 +138,45 @@ The bot uses Google's Gemini 2.5 Flash model for AI responses. When tagged with 
 > [Database roast about Ankit]
 ```
 
-## Contributing
+## Deployment
 
-Feel free to add more roasts or improve the bot! Just make sure to:
-- Keep roasts light-hearted (within your group's boundaries)
-- Test new features before deploying
-- Update the README if you add new commands
+### ☁️ Railway Deployment
+
+Deploy your bot to Railway for 24/7 uptime:
+
+1. **Create a Railway project**
+   - Go to [Railway.app](https://railway.app)
+   - Sign up/Login with GitHub
+   - Click "New Project"
+
+2. **Deploy from GitHub repository**
+   - Select "Deploy from GitHub repo"
+   - Choose your repository
+   - Railway will auto-detect Python
+
+3. **Add environment variables**
+   - Go to your project's "Variables" tab
+   - Add the following:
+   ```
+   TOKEN=your_discord_bot_token
+   GEMINI_API_KEY=your_gemini_api_key
+   ```
+
+4. **Configure start command** (if needed)
+   - Railway usually auto-detects, but you can manually set:
+   ```
+   python main.py
+   ```
+
+5. **Deploy!**
+   - Railway will automatically deploy
+   - Bot will run 24/7 ✅
+
+### Alternative Deployment Options
+- **Heroku**: Similar process, add Procfile with `worker: python main.py`
+- **Replit**: Easy web-based IDE with built-in hosting
+- **VPS**: DigitalOcean, AWS EC2, or any Linux server
+
 
 ## Notes
 
@@ -173,3 +206,4 @@ This project is for personal/educational use. Please use responsibly and ensure 
 ---
 
 **Made with 🔥 for the homies**
+**By Rishi**
