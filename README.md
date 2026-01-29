@@ -205,5 +205,5 @@ This project is for personal/educational use. Please use responsibly and ensure 
 
 ---
 
-**Made with 🔥 for the homies**
+**Made with 🔥 for the homies\n**
 **By Rishi**
