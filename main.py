@@ -202,8 +202,7 @@ async def list(ctx):
         "**Utility:**\n"
         "• `!roastlist` — Show roast database\n\n"
         "**AI:**\n"
-        "• `!ai question` — Ask AI\n"
-        "• `!img prompt` — Generate image\n\n"
+        "• `!ai question` — Ask AI\n\n"
         "You can also **tag the bot** to roast or ask AI 👾"
         "Type commands with `!` prefix.\n"
         "Use responsibly 😌🔥"
@@ -217,31 +216,14 @@ async def list(ctx):
 @bot.command()
 async def ai(ctx, *, question):
     await ctx.trigger_typing()
+
     try:
         response = text_model.generate_content(question)
         await ctx.send(response.text[:1900])
-    except:
-        await ctx.send("⚠️ AI error occurred.")
+    except Exception as e:
+        print(e)
+        await ctx.send("⚠️ Gemini API error. Check API key.")
 
-# IMAGE COMMAND
-
-@bot.command()
-async def img(ctx, *, prompt):
-    await ctx.trigger_typing()
-    try:
-        image_model = genai.GenerativeModel("gemini-1.5-pro")
-        result = image_model.generate_content(
-            prompt,
-            generation_config={"response_mime_type": "image/png"}
-        )
-
-        image_bytes = result.candidates[0].content.parts[0].inline_data.data
-        with open("image.png", "wb") as f:
-            f.write(image_bytes)
-
-        await ctx.send(file=discord.File("image.png"))
-    except:
-        await ctx.send("⚠️ Image generation failed.")
 
 
 # TAG HANDLER
@@ -262,36 +244,19 @@ async def on_message(message):
                 await message.channel.send(roast)
                 return
 
-        # ---- IMAGE MODE ----
-        if content.startswith("image"):
-            prompt = content.replace("image", "").strip()
-            if prompt:
-                try:
-                    image_model = genai.GenerativeModel("gemini-1.5-pro")
-                    result = image_model.generate_content(
-                        prompt,
-                        generation_config={"response_mime_type": "image/png"}
-                    )
-
-                    image_bytes = result.candidates[0].content.parts[0].inline_data.data
-                    with open("image.png", "wb") as f:
-                        f.write(image_bytes)
-
-                    await message.channel.send(file=discord.File("image.png"))
-                except:
-                    await message.channel.send("⚠️ Image generation failed.")
-                return
-
         # ---- AI MODE ----
         if content:
             try:
                 response = text_model.generate_content(content)
                 await message.channel.send(response.text[:1900])
-            except:
-                await message.channel.send("⚠️ AI error occurred.")
-
+            except Exception as e:
+                print(e)
+                await message.channel.send("⚠️ Gemini API error.")
+    
     await bot.process_commands(message)
+
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
