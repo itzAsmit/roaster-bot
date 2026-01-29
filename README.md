@@ -81,8 +81,8 @@ python main.py
 Update the channel IDs in `main.py` where the bot sends startup messages:
 ```python
 channel_ids = [
-    1465758717583822993,  # Replace with your channel ID
-    1465774350455279707   # Replace with your channel ID
+    XXXXXXXXXXXXXXXXXXX,  # Replace with your channel ID
+    XXXXXXXXXXXXXXXXXXX   # Replace with your channel ID
 ]
 ```
 
