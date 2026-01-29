@@ -1,11 +1,16 @@
 import discord
 from discord.ext import commands
 import os
+import google.generativeai as genai
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+text_model = genai.GenerativeModel("gemini-1.5-flash")
 
 # ROAST DATABASE
 ankit_data = [
@@ -171,6 +176,7 @@ async def asmit(ctx):
 async def gunda(ctx):
     await ctx.send(get_next("gunda", gunda_data))
 
+# ROAST LIST
 
 @bot.command()
 async def roastlist(ctx):
@@ -180,6 +186,9 @@ async def roastlist(ctx):
         msg += f"• {name} — {len(roasts)} roasts\n"
 
     await ctx.send(msg)
+
+
+# HELP LIST
 
 @bot.command()
 async def list(ctx):
@@ -192,6 +201,10 @@ async def list(ctx):
         "• `!asmit` — Roast Asmit\n\n"
         "**Utility:**\n"
         "• `!roastlist` — Show roast database\n\n"
+        "**AI:**\n"
+        "• `!ai question` — Ask AI\n"
+        "• `!img prompt` — Generate image\n\n"
+        "You can also **tag the bot** to roast or ask AI 👾"
         "Type commands with `!` prefix.\n"
         "Use responsibly 😌🔥"
     )
@@ -199,5 +212,86 @@ async def list(ctx):
     await ctx.send(msg)
 
 
+# AI COMMAND
+
+@bot.command()
+async def ai(ctx, *, question):
+    await ctx.trigger_typing()
+    try:
+        response = text_model.generate_content(question)
+        await ctx.send(response.text[:1900])
+    except:
+        await ctx.send("⚠️ AI error occurred.")
+
+# IMAGE COMMAND
+
+@bot.command()
+async def img(ctx, *, prompt):
+    await ctx.trigger_typing()
+    try:
+        image_model = genai.GenerativeModel("gemini-1.5-pro")
+        result = image_model.generate_content(
+            prompt,
+            generation_config={"response_mime_type": "image/png"}
+        )
+
+        image_bytes = result.candidates[0].content.parts[0].inline_data.data
+        with open("image.png", "wb") as f:
+            f.write(image_bytes)
+
+        await ctx.send(file=discord.File("image.png"))
+    except:
+        await ctx.send("⚠️ Image generation failed.")
+
+
+# TAG HANDLER
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+
+    if bot.user in message.mentions:
+        content = message.content.lower()
+        content = content.replace(f"<@{bot.user.id}>", "").strip()
+
+        # ---- ROAST MODE ----
+        for name, data in roast_db.items():
+            if name.lower() in content:
+                roast = get_next(name.lower(), data)
+                await message.channel.send(roast)
+                return
+
+        # ---- IMAGE MODE ----
+        if content.startswith("image"):
+            prompt = content.replace("image", "").strip()
+            if prompt:
+                try:
+                    image_model = genai.GenerativeModel("gemini-1.5-pro")
+                    result = image_model.generate_content(
+                        prompt,
+                        generation_config={"response_mime_type": "image/png"}
+                    )
+
+                    image_bytes = result.candidates[0].content.parts[0].inline_data.data
+                    with open("image.png", "wb") as f:
+                        f.write(image_bytes)
+
+                    await message.channel.send(file=discord.File("image.png"))
+                except:
+                    await message.channel.send("⚠️ Image generation failed.")
+                return
+
+        # ---- AI MODE ----
+        if content:
+            try:
+                response = text_model.generate_content(content)
+                await message.channel.send(response.text[:1900])
+            except:
+                await message.channel.send("⚠️ AI error occurred.")
+
+    await bot.process_commands(message)
+
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
