@@ -224,7 +224,21 @@ async def on_message(message):
         raw = message.content.replace(f"<@{bot.user.id}>", "").strip()
         content = raw.lower()
 
-        # DATABASE ROAST
+        # AI MODE (keyword: ai)
+        if content.startswith("ai"):
+            prompt = raw[2:].strip()  # remove "ai"
+
+            try:
+                response = text_model.generate_content(prompt)
+                await message.channel.send(response.text[:1900])
+            except Exception as e:
+                print(e)
+                await message.channel.send("⚠️ Gemini API error.")
+
+            await bot.process_commands(message)
+            return
+
+        # DATABASE ROAST MODE
         for name, data in roast_db.items():
             if name.lower() in content:
                 roast = get_next(name.lower(), data)
@@ -232,7 +246,7 @@ async def on_message(message):
                 await bot.process_commands(message)
                 return
 
-        # AI MODE (ONLY IF DB NOT TRIGGERED)
+        # NORMAL AI CHAT
         if raw:
             try:
                 response = text_model.generate_content(raw)
@@ -240,17 +254,9 @@ async def on_message(message):
             except Exception as e:
                 print(e)
                 await message.channel.send("⚠️ Gemini API error.")
-           
-    # THIS IS CRITICAL FOR USING BOTH '!' AND TAGGING
+
     await bot.process_commands(message)
 
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
-
-
-
-
-
-
-
