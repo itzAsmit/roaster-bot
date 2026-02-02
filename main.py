@@ -385,5 +385,3 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
-
-╚═══════════════════════════╝
