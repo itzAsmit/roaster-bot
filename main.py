@@ -1,7 +1,8 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import os
 import google.generativeai as genai
+import random
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -48,7 +49,7 @@ abhra_data = [
     "Abhra loading confidence without skills.",
     "Bro speaks before thinking — every time.",
     "Abhra running on Sristi's cum.",
-    "Even Google can’t find Abhra’s choto nunu.",
+    "Even Google can't find Abhra's choto nunu.",
     "Digha r mone e gota Boys Hostel, but pussy te khali Abhradip 🫦",
     "Abhra Loves Sristi. But Sristi loves Subham.",
     "Kire Gandu Threesome korbi naki re Sristi & Digha r sathe 😘",
@@ -58,7 +59,7 @@ abhra_data = [
 
 biswa_data = [
     "Biswa talks like he knows everything — knows nothing.",
-    "Biswa’s ideas sound better in his head.",
+    "Biswa's ideas sound better in his head.",
     "Confidence sponsored by nothing.",
     "Biswa r rani ke bara amrai chude debo 😘",
     "Sala Baccha choda mal 🤣",
@@ -73,7 +74,7 @@ biswa_data = [
 asmit_data = [
     "Asmit saala valo maal ache.",
     "Asmit is that calm guy everyone trusts.",
-    "Always supportive, always solid — that’s Asmit.",
+    "Always supportive, always solid — that's Asmit.",
     "One of those people who makes the group better.",
     "Asmit = green flag energy fr 💚",
     "Asmit deserves respect 🫡",
@@ -131,6 +132,15 @@ roast_db = {
     "Gunda": gunda_data
 }
 
+# COLOR SCHEMES FOR EACH PERSON
+colors = {
+    "Ankit": discord.Color.red(),
+    "Abhra": discord.Color.blue(),
+    "Biswa": discord.Color.purple(),
+    "Asmit": discord.Color.green(),
+    "Gunda": discord.Color.orange()
+}
+
 # EVENTS
 @bot.event
 async def on_ready():
@@ -144,9 +154,13 @@ async def on_ready():
     for channel_id in channel_ids:
         channel = bot.get_channel(channel_id)
         if channel:
-            await channel.send(
-                "🟢 **Bot is Updated just now.**\nYou may continue your bakchodi 👾"
+            embed = discord.Embed(
+                title="🟢 Bot Online",
+                description="Bot is Updated just now.\nYou may continue your bakchodi 👾",
+                color=discord.Color.green()
             )
+            embed.set_footer(text="Type !helpme for commands")
+            await channel.send(embed=embed)
 
 # SERIAL FUNCTION
 def get_next(name, data):
@@ -158,94 +172,142 @@ def get_next(name, data):
 # COMMANDS
 @bot.command()
 async def ankit(ctx):
-    await ctx.send(get_next("ankit", ankit_data))
+    roast = get_next("ankit", ankit_data)
+    embed = discord.Embed(
+        title="🔥 Roasting Ankit",
+        description=roast,
+        color=colors["Ankit"]
+    )
+    embed.set_footer(text=f"Roast #{roast_index['ankit']} | Requested by {ctx.author.name}")
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def abhra(ctx):
-    await ctx.send(get_next("abhra", abhra_data))
+    roast = get_next("abhra", abhra_data)
+    embed = discord.Embed(
+        title="🔥 Roasting Abhra",
+        description=roast,
+        color=colors["Abhra"]
+    )
+    embed.set_footer(text=f"Roast #{roast_index['abhra']} | Requested by {ctx.author.name}")
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def biswa(ctx):
-    await ctx.send(get_next("biswa", biswa_data))
+    roast = get_next("biswa", biswa_data)
+    embed = discord.Embed(
+        title="🔥 Roasting Biswa",
+        description=roast,
+        color=colors["Biswa"]
+    )
+    embed.set_footer(text=f"Roast #{roast_index['biswa']} | Requested by {ctx.author.name}")
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def asmit(ctx):
-    await ctx.send(get_next("asmit", asmit_data))
+    roast = get_next("asmit", asmit_data)
+    embed = discord.Embed(
+        title="✨ Praising Asmit",
+        description=roast,
+        color=colors["Asmit"]
+    )
+    embed.set_footer(text=f"Compliment #{roast_index['asmit']} | Requested by {ctx.author.name}")
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def gunda(ctx):
-    await ctx.send(get_next("gunda", gunda_data))
+    roast = get_next("gunda", gunda_data)
+    embed = discord.Embed(
+        title="🔥 Roasting Gunda",
+        description=roast,
+        color=colors["Gunda"]
+    )
+    embed.set_footer(text=f"Roast #{roast_index['gunda']} | Requested by {ctx.author.name}")
+    await ctx.send(embed=embed)
 
 # ROAST LIST
-
 @bot.command()
 async def roastlist(ctx):
-    msg = "🔥 **Roast Database** 🔥\n\n"
-
+    embed = discord.Embed(
+        title="🔥 Roast Database 🔥",
+        description="Here's the complete roast arsenal:",
+        color=discord.Color.gold()
+    )
+    
     for name, roasts in roast_db.items():
-        msg += f"• {name} — {len(roasts)} roasts\n"
-
-    await ctx.send(msg)
-
+        embed.add_field(
+            name=f"{name}",
+            value=f"📊 **{len(roasts)}** roasts available",
+            inline=True
+        )
+    
+    embed.set_footer(text="Use !helpme to see commands")
+    await ctx.send(embed=embed)
 
 # HELP LIST
-
 @bot.command()
 async def helpme(ctx):
-    
     embed = discord.Embed(
-        title="📘 **Bot Commands** 📘",
-        description="This bot keeps your voice channel active 24/7 by staying connected and playing silence.",
-        color=discord.Color.pink()
+        title="📘 Bot Commands Guide",
+        description="Your complete guide to roasting and AI interactions",
+        color=discord.Color.purple()
     )
     
-    commands_text = """
-        • `!ankit` — Roast Ankit
-        • `!abhra` — Roast Abhra
-        • `!biswa` — Roast Biswa
-        • `!gunda` — Roast Gunda
-        • `!asmit` — Roast Asmit
-    """
+    # Roast Commands
+    roast_commands = (
+        "`!ankit` - Roast Ankit\n"
+        "`!abhra` - Roast Abhra\n"
+        "`!biswa` - Roast Biswa\n"
+        "`!gunda` - Roast Gunda\n"
+        "`!asmit` - Praise Asmit"
+    )
     embed.add_field(
-        name="\n📝 Commands:",
-        value=commands_text,
+        name="🔥 Roast Commands",
+        value=roast_commands,
         inline=False
     )
-
-    utility = """
-    • `!roastlist` — Show roast database
-    """
+    
+    # Utility Commands
+    utility = "`!roastlist` - View roast database stats"
     embed.add_field(
-        name="\n⚙️ Utility:",
-        value=how_it_works,
+        name="⚙️ Utility",
+        value=utility,
         inline=False
     )
-
-    ai = """
-    You can **tag the bot** to roast or ask AI 👾
-    """
+    
+    # AI Commands
+    ai_info = (
+        "**Tag the bot** to interact with AI:\n"
+        "• `@bot <message>` - Normal AI chat\n"
+        "• `@bot ai <prompt>` - Creative AI mode\n"
+        "• `@bot <name>` - Get database roast"
+    )
     embed.add_field(
-        name="\nAI:",
-        value=ai,
+        name="🤖 AI Features",
+        value=ai_info,
         inline=False
     )
-    tip = """
-    Tag the bot with a name for database roasts,
-    add `ai` for creative AI roasts.
-    Type commands with `!` prefix.
-    Use responsibly 😌🔥
-    """
+    
+    # Tips
+    tips = (
+        "• Commands need `!` prefix\n"
+        "• Tag bot for AI responses\n"
+        "• Use responsibly 😌🔥"
+    )
     embed.add_field(
-        name="\n💡 Tip:",
-        value=ai,
+        name="💡 Tips",
+        value=tips,
         inline=False
     )
+    
+    embed.set_footer(text="Made with 🔥 | Have fun!")
+    
+    if bot.user.avatar:
+        embed.set_thumbnail(url=bot.user.avatar.url)
     
     await ctx.send(embed=embed)
 
-
 # TAG HANDLER
-
 @bot.event
 async def on_message(message):
     if message.author.bot:
@@ -257,14 +319,27 @@ async def on_message(message):
 
         # AI MODE (keyword: ai)
         if content.startswith("ai"):
-            prompt = raw[2:].strip()  # remove "ai"
+            prompt = raw[2:].strip()
 
             try:
-                response = text_model.generate_content(prompt)
-                await message.channel.send(response.text[:1900])
+                async with message.channel.typing():
+                    response = text_model.generate_content(prompt)
+                
+                embed = discord.Embed(
+                    title="🤖 AI Creative Mode",
+                    description=response.text[:4000],
+                    color=discord.Color.from_rgb(138, 43, 226)
+                )
+                embed.set_footer(text=f"Requested by {message.author.name}")
+                await message.channel.send(embed=embed)
             except Exception as e:
                 print(e)
-                await message.channel.send("⚠️ Gemini API error.")
+                error_embed = discord.Embed(
+                    title="⚠️ Error",
+                    description="Gemini API error occurred.",
+                    color=discord.Color.red()
+                )
+                await message.channel.send(embed=error_embed)
 
             await bot.process_commands(message)
             return
@@ -273,24 +348,42 @@ async def on_message(message):
         for name, data in roast_db.items():
             if name.lower() in content:
                 roast = get_next(name.lower(), data)
-                await message.channel.send(roast)
+                
+                embed = discord.Embed(
+                    title=f"🔥 Roasting {name}",
+                    description=roast,
+                    color=colors[name]
+                )
+                embed.set_footer(text=f"Triggered by {message.author.name}")
+                await message.channel.send(embed=embed)
                 await bot.process_commands(message)
                 return
 
         # NORMAL AI CHAT
         if raw:
             try:
-                response = text_model.generate_content(raw)
-                await message.channel.send(response.text[:1900])
+                async with message.channel.typing():
+                    response = text_model.generate_content(raw)
+                
+                embed = discord.Embed(
+                    title="💬 AI Response",
+                    description=response.text[:4000],
+                    color=discord.Color.blurple()
+                )
+                embed.set_footer(text=f"Asked by {message.author.name}")
+                await message.channel.send(embed=embed)
             except Exception as e:
                 print(e)
-                await message.channel.send("⚠️ Gemini API error.")
+                error_embed = discord.Embed(
+                    title="⚠️ Error",
+                    description="Gemini API error occurred.",
+                    color=discord.Color.red()
+                )
+                await message.channel.send(embed=error_embed)
 
     await bot.process_commands(message)
-
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
 
-
-
+╚═══════════════════════════╝
