@@ -300,8 +300,6 @@ async def helpme(ctx):
         inline=False
     )
     
-    embed.set_footer(text="Made with 🔥 | Have fun!")
-    
     if bot.user.avatar:
         embed.set_thumbnail(url=bot.user.avatar.url)
     
@@ -385,3 +383,4 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
