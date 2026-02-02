@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
 import google.generativeai as genai
 
@@ -192,25 +192,55 @@ async def roastlist(ctx):
 
 @bot.command()
 async def helpme(ctx):
-    msg = (
-        "📘 **Bot Commands** 📘\n\n"
-        "• `!ankit` — Roast Ankit\n"
-        "• `!abhra` — Roast Abhra\n"
-        "• `!biswa` — Roast Biswa\n"
-        "• `!gunda` — Roast Gunda\n"
-        "• `!asmit` — Roast Asmit\n\n"
-        "**Utility:**\n"
-        "• `!roastlist` — Show roast database\n\n"
-        "**AI:**\n"
-        "You can **tag the bot** to roast or ask AI 👾\n\n"
-        "**💡 Tip:**\n"
-        "Tag the bot with a name for database roasts,\n"
-        "add `ai` for creative AI roasts.\n" 
-        "Type commands with `!` prefix.\n"
-        "Use responsibly 😌🔥"
+    
+    embed = discord.Embed(
+        title="📘 **Bot Commands** 📘",
+        description="This bot keeps your voice channel active 24/7 by staying connected and playing silence.",
+        color=discord.Color.pink()
+    )
+    
+    commands_text = """
+        • `!ankit` — Roast Ankit
+        • `!abhra` — Roast Abhra
+        • `!biswa` — Roast Biswa
+        • `!gunda` — Roast Gunda
+        • `!asmit` — Roast Asmit
+    """
+    embed.add_field(
+        name="\n📝 Commands:",
+        value=commands_text,
+        inline=False
     )
 
-    await ctx.send(msg)
+    utility = """
+    • `!roastlist` — Show roast database
+    """
+    embed.add_field(
+        name="\n⚙️ Utility:",
+        value=how_it_works,
+        inline=False
+    )
+
+    ai = """
+    You can **tag the bot** to roast or ask AI 👾
+    """
+    embed.add_field(
+        name="\nAI:",
+        value=ai,
+        inline=False
+
+    tip = """
+    Tag the bot with a name for database roasts,
+    add `ai` for creative AI roasts.
+    Type commands with `!` prefix.
+    Use responsibly 😌🔥
+    """
+    embed.add_field(
+        name="\n💡 Tip:",
+        value=ai,
+        inline=False
+        
+    await ctx.send(embed=embed)
 
 
 # TAG HANDLER
@@ -260,3 +290,4 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
