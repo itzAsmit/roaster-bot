@@ -228,7 +228,7 @@ async def helpme(ctx):
         name="\nAI:",
         value=ai,
         inline=False
-
+    )
     tip = """
     Tag the bot with a name for database roasts,
     add `ai` for creative AI roasts.
@@ -290,4 +290,5 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
