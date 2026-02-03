@@ -13,10 +13,7 @@ A fun Discord bot that delivers pre-written roasts and integrates with Google's 
 
 ### Roast Commands
 - `!ankit` - Roast Ankit
-- `!abhra` - Roast Abhra
-- `!biswa` - Roast Biswa
-- `!gunda` - Roast Gunda
-- `!asmit` - Compliment Asmit (yes, he gets special treatment 💚)
+- *Same goes on*
 
 ### Utility Commands
 - `!roastlist` - View roast database statistics
@@ -48,15 +45,7 @@ cd discord-roast-bot
 pip install discord.py google-generativeai
 ```
 
-3. **Set up environment variables**
-
-Create a `.env` file or set these environment variables:
-```env
-TOKEN=your_discord_bot_token_here
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-4. **Run the bot**
+3. **Run the bot**
 ```bash
 python main.py
 ```
@@ -81,8 +70,7 @@ python main.py
 Update the channel IDs in `main.py` where the bot sends startup messages:
 ```python
 channel_ids = [
-    XXXXXXXXXXXXXXXXXXX,  # Replace with your channel ID
-    XXXXXXXXXXXXXXXXXXX   # Replace with your channel ID
+    CHANNEL_ID   # Add the id in variable in Railway.
 ]
 ```
 
@@ -98,7 +86,7 @@ ankit_data = [
 ### Adding New People
 1. Create a new data array
 2. Add to `roast_db` dictionary
-3. Initialize in `roast_index`
+3. Initialize in `roast_index` and `colors`
 4. Create a command function
 
 ## Project Structure
@@ -108,7 +96,7 @@ discord-roast-bot/
 │
 ├── main.py              # Main bot file
 ├── README.md           # This file
-└── .env                # Environment variables (create this)
+└── requirements.txt    #
 ```
 
 ## How It Works
@@ -160,6 +148,7 @@ Deploy your bot to Railway for 24/7 uptime:
    ```
    TOKEN=your_discord_bot_token
    GEMINI_API_KEY=your_gemini_api_key
+   CHANNEL_IDS=your_channel_ids
    ```
 
 4. **Configure start command** (if needed)
