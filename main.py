@@ -171,8 +171,7 @@ def get_next(name, data):
 async def ankit(ctx):
     roast = get_next("ankit", ankit_data)
     embed = discord.Embed(
-        title="🔥 Roasting Ankit",
-        description=roast,
+        title=roast,
         color=colors["Ankit"]
     )
     embed.set_footer(text=f"Roast #{roast_index['ankit']} | Requested by {ctx.author.name}")
@@ -182,8 +181,7 @@ async def ankit(ctx):
 async def abhra(ctx):
     roast = get_next("abhra", abhra_data)
     embed = discord.Embed(
-        title="🔥 Roasting Abhra",
-        description=roast,
+        title=roast
         color=colors["Abhra"]
     )
     embed.set_footer(text=f"Roast #{roast_index['abhra']} | Requested by {ctx.author.name}")
@@ -193,8 +191,7 @@ async def abhra(ctx):
 async def biswa(ctx):
     roast = get_next("biswa", biswa_data)
     embed = discord.Embed(
-        title="🔥 Roasting Biswa",
-        description=roast,
+        title=roast
         color=colors["Biswa"]
     )
     embed.set_footer(text=f"Roast #{roast_index['biswa']} | Requested by {ctx.author.name}")
@@ -204,8 +201,7 @@ async def biswa(ctx):
 async def asmit(ctx):
     roast = get_next("asmit", asmit_data)
     embed = discord.Embed(
-        title="✨ Praising Asmit",
-        description=roast,
+        title=roast
         color=colors["Asmit"]
     )
     embed.set_footer(text=f"Compliment #{roast_index['asmit']} | Requested by {ctx.author.name}")
@@ -215,8 +211,7 @@ async def asmit(ctx):
 async def gunda(ctx):
     roast = get_next("gunda", gunda_data)
     embed = discord.Embed(
-        title="🔥 Roasting Gunda",
-        description=roast,
+        title=roast
         color=colors["Gunda"]
     )
     embed.set_footer(text=f"Roast #{roast_index['gunda']} | Requested by {ctx.author.name}")
@@ -380,3 +375,4 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(TOKEN)
+
