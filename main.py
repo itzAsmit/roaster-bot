@@ -147,8 +147,8 @@ async def on_ready():
     print("Bot is online 🔥")
 
     channel_ids = [
-        1465758717583822993,
-        1465774350455279707
+        CHANNEL_ID_1,
+        CHANNEL_ID_2
     ]
 
     for channel_id in channel_ids:
@@ -383,4 +383,5 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(os.getenv("TOKEN"))
+
 
