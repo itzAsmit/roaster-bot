@@ -5,6 +5,8 @@ import google.generativeai as genai
 import random
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
+TOKEN = os.getenv("TOKEN")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -146,21 +148,16 @@ colors = {
 async def on_ready():
     print("Bot is online 🔥")
 
-    channel_ids = [
-        CHANNEL_ID_1,
-        CHANNEL_ID_2
-    ]
+    channel = bot.get_channel(CHANNEL_ID)
+    if channel:
+        embed = discord.Embed(
+            title="🟢 Bot Online",
+            description="Bot is Updated just now.\nYou may continue your bakchodi 👾",
+            color=discord.Color.green()
+        )
+        embed.set_footer(text="Type !helpme for commands")
+        await channel.send(embed=embed)
 
-    for channel_id in channel_ids:
-        channel = bot.get_channel(channel_id)
-        if channel:
-            embed = discord.Embed(
-                title="🟢 Bot Online",
-                description="Bot is Updated just now.\nYou may continue your bakchodi 👾",
-                color=discord.Color.green()
-            )
-            embed.set_footer(text="Type !helpme for commands")
-            await channel.send(embed=embed)
 
 # SERIAL FUNCTION
 def get_next(name, data):
@@ -382,6 +379,4 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # RUN BOT
-bot.run(os.getenv("TOKEN"))
-
-
+bot.run(TOKEN)
