@@ -96,7 +96,7 @@ discord-roast-bot/
 │
 ├── main.py              # Main bot file
 ├── README.md           # This file
-└── requirements.txt    #
+└── requirements.txt    # The requirements
 ```
 
 ## How It Works
