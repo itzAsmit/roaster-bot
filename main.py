@@ -21,8 +21,6 @@ ankit_data = [
     "Ankit Madarchod.",
     "Panchod Bill sala tor maire chudi 👄",
     "Ek number er khanki r chele sala ☠️",
-    "Saddy ke Soda ii chudbe.",
-    "Saddy 💗 Soda.",
     "Jolpori r Nati.",
     "Magibaj saala.",
     "Panchod er Gud e Murgi r Dim 😘",
@@ -41,9 +39,9 @@ ankit_data = [
     "Ankit er fata , gudmarani r beta 💦",
     "Highway r rendimagi Ankit 💦",
     "AOT r bessa magi Ankit💦",
-    "Malgari r bichi Ankit er guddee💦",
     "Saala toke Bally te giye chude asbo 😝",
-    "Nakazz chudi Ankit 💦"
+    "Nakazz chudi Ankit 💦",
+    "Panchod er pode girgiti guje debo colouring haga berobe 🫦"
 ]
 
 abhra_data = [
@@ -54,15 +52,15 @@ abhra_data = [
     "Even Google can't find Abhra's choto nunu.",
     "Digha r mone e gota Boys Hostel, but pussy te khali Abhradip 🫦",
     "Abhra Loves Sristi. But Sristi loves Subham.",
-    "Kire Gandu Threesome korbi naki re Sristi & Digha r sathe 😘",
     "Chut is soo large, AOT r moto 10 ta college dhuke jabe ☠️",
-    "Khenki to bhai achis tui 🥴"
+    "Khenki to bhai achis tui 🥴",
+    "Abhra r bou er chut e poddo phul guje debo, mukh diye gerua baccha berobe 🥰"
 ]
 
 biswa_data = [
     "Biswa talks like he knows everything — knows nothing.",
-    "Biswa's ideas sound better in his head.",
-    "Confidence sponsored by nothing.",
+    "Biswa madarchod sala kuttabaj.",
+    "Kutta r bichi khaoya suor choda.",
     "Biswa r rani ke bara amrai chude debo 😘",
     "Sala Baccha choda mal 🤣",
     "Bar bar deke lab nei Biswa pedophile ii thakbe.",
@@ -375,5 +373,6 @@ async def on_message(message):
 
 # RUN BOT
 bot.run(TOKEN)
+
 
 
